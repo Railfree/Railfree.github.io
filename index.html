@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Model Release Timeline - 2016-2025</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> <!-- For icons -->
+  <style>
+    :root {
+      --primary-color: #6200ea;
+      --secondary-color: #03dac6;
+      --background-color: #f8f9fa;
+      --card-background: #ffffff;
+      --text-color: #333;
+      --muted-text-color: #777;
+      --open-source-bg: #e8f5e9;
+      --open-source-border: #4caf50;
+      --api-only-bg: #fff0f0;
+      --api-only-border: #f44336;
+      --special-color: #ffd700;
+      --link-color: #1976d2; /* Blue for links */
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .hero-section {
+      text-align: center;
+      padding: 40px 20px;
+      background-color: var(--primary-color);
+      color: white;
+      border-radius: 8px;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+    .hero-section h1 {
+      margin: 0;
+      font-size: 2.2em;
+      font-weight: 700;
+    }
+    .hero-section p {
+      font-size: 1em;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .filter-controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      padding: 15px 20px;
+      gap: 20px;
+      background-color: var(--card-background);
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      margin-bottom: 30px;
+    }
+    .filter-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .filter-group label {
+      font-weight: 600;
+      font-size: 0.9em;
+      color: var(--text-color);
+    }
+    #year-filter-buttons .toggle-button {
+        margin: 0 2px;
+    }
+    select, .toggle-button {
+      padding: 8px 12px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 0.85em;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    select:focus, .toggle-button:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(98, 0, 234, 0.3);
+    }
+    .toggle-button {
+      background-color: var(--background-color);
+      color: var(--text-color);
+      border: 1px solid #ddd;
+    }
+    .toggle-button.active {
+      color: white;
+      border: none;
+    }
+    .toggle-button.open-source.active { background-color: var(--open-source-border); }
+    .toggle-button.api-only.active { background-color: var(--api-only-border); }
+    .toggle-button.show-all.active { background-color: var(--primary-color); }
+    .toggle-button.year-btn.active { background-color: var(--primary-color); }
+
+    .category-filters {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 30px;
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+
+    .counter-container {
+      text-align: center;
+      padding: 15px;
+      background-color: var(--card-background);
+      margin: 0 auto 30px auto;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      max-width: 500px;
+    }
+    .counter-container span { margin: 0 5px; }
+    .counter-container .count {
+        font-size: 1.2em;
+        font-weight: 700;
+        color: var(--primary-color);
+    }
+    .counter-container .open-source-count { color: var(--open-source-border); }
+    .counter-container .api-only-count { color: var(--api-only-border); }
+
+    .timeline {
+      position: relative;
+      padding-left: 40px;
+      list-style: none;
+      margin: 0;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 20px;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background-color: var(--primary-color);
+      border-radius: 1.5px;
+      z-index: 1;
+    }
+
+    .timeline-year {
+      position: relative;
+      margin-bottom: 50px;
+    }
+
+    .timeline-year h2 {
+      position: sticky;
+      top: 0;
+      background-color: var(--primary-color);
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 1.5em;
+      margin-bottom: 20px;
+      z-index: 10;
+      box-shadow: 0 4px 10px rgba(98, 0, 234, 0.3);
+    }
+
+    .timeline-month {
+      position: relative;
+      margin-bottom: 30px;
+    }
+
+    .timeline-month h3 {
+      position: sticky;
+      top: 65px;
+      background-color: rgba(255, 255, 255, 0.95);
+      color: var(--primary-color);
+      font-size: 1.2em;
+      padding: 8px 15px;
+      border-left: 4px solid var(--primary-color);
+      border-radius: 0 5px 5px 0;
+      margin-bottom: 15px;
+      z-index: 5;
+      backdrop-filter: blur(5px);
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-left: 40px;
+      margin-bottom: 20px;
+      z-index: 2;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 12px;
+      width: 16px;
+      height: 16px;
+      background-color: var(--secondary-color);
+      border: 3px solid var(--primary-color);
+      border-radius: 50%;
+      z-index: 3;
+    }
+    
+    .timeline-item[data-special="true"]::after {
+      content: '★';
+      position: absolute;
+      left: -6px;
+      top: -3px;
+      color: var(--special-color);
+      font-size: 18px;
+      z-index: 4;
+      text-shadow: 0 0 5px rgba(255, 215, 0, 0.7);
+    }
+
+    .timeline-item.open-source::before { background-color: var(--open-source-border); border-color: var(--open-source-bg); }
+    .timeline-item.api-only::before { background-color: var(--api-only-border); border-color: var(--api-only-bg); }
+
+    .event-card {
+      background-color: var(--card-background);
+      padding: 12px 15px;
+      border-radius: 8px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease-in-out;
+      border-left: 4px solid var(--primary-color);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .timeline-item.open-source .event-card { border-left: 4px solid var(--open-source-border); background-color: var(--open-source-bg); }
+    .timeline-item.api-only .event-card { border-left: 4px solid var(--api-only-border); background-color: var(--api-only-bg); }
+
+    .event-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 5px;
+    }
+    
+    .card-title-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-grow: 1; 
+      min-width: 0;
+    }
+
+    .card-title-group h4 {
+      margin: 0;
+      font-size: 0.95em;
+      font-weight: 600;
+      color: var(--text-color);
+    }
+    
+    .event-card p {
+      margin: 5px 0 0 0;
+      font-size: 0.8em;
+      color: var(--muted-text-color);
+    }
+
+    .card-header .tag {
+      padding: 3px 6px;
+      font-size: 0.7em;
+      font-weight: 600;
+      border-radius: 3px;
+      color: white;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .card-header .tag.open-source-tag { background-color: var(--open-source-border); }
+    .card-header .tag.api-only-tag { background-color: var(--api-only-border); }
+
+    /* --- NEW CSS FOR LINKS CONTAINER --- */
+    .event-links-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-top: 10px;
+        padding-top: 5px;
+        border-top: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .event-link {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 0.75em;
+        font-weight: 500;
+        color: var(--link-color);
+        text-decoration: none;
+        white-space: nowrap;
+    }
+    .event-link i {
+        font-size: 0.9em;
+    }
+    .event-link:hover {
+        text-decoration: underline;
+    }
+
+    .github-link {
+      text-align: center;
+      padding: 12px;
+      background-color: #24292e;
+      color: white;
+      font-size: 1em;
+      margin-bottom: 30px;
+    }
+    .github-link a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .github-link a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .container { padding: 15px; }
+      .hero-section h1 { font-size: 1.8em; }
+      .filter-controls { flex-direction: column; gap: 15px; }
+      .timeline::before { left: 10px; }
+      .timeline-item { padding-left: 30px; }
+      .timeline-item::before { left: 0; width: 14px; height: 14px; top: 10px; border-width: 2px; }
+      .timeline-item[data-special="true"]::after { font-size: 16px; left: -5px; top: -2px;}
+      .timeline-month h3 { top: 55px; font-size: 1.1em; }
+    }
+    @media (max-width: 480px) {
+      .hero-section h1 { font-size: 1.6em; }
+      .filter-controls { gap: 10px; }
+      .filter-group { flex-direction: column; align-items: flex-start; width: 100%; }
+      select, .toggle-button { width: 100%; }
+      .timeline-month h3 { font-size: 1em; }
+      .card-header { flex-wrap: wrap; }
+      .card-title-group h4 { font-size: 0.9em; }
+      .event-card p { font-size: 0.75em; }
+      .card-header .tag { font-size: 0.65em; }
+      .event-link { font-size: 0.75em; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="github-link">
+    <a href="https://github.com/" target="_blank">View on GitHub</a>
+  </div>
+  
+  <div class="container">
+    <div class="hero-section">
+      <h1>AI Model Release Timeline</h1>
+      <p>Tracking key advancements in AI models from 2016 to 2025.</p>
+    </div>
+
+    <div class="filter-controls">
+      <div class="filter-group">
+        <label for="year-filter-buttons">Filter by Year:</label>
+        <div id="year-filter-buttons">
+          <button class="toggle-button year-btn active" onclick="setFilter('year', 'all', this)">All</button>
+          <!-- Year buttons will be dynamically generated -->
+        </div>
+      </div>
+      <div class="filter-group">
+        <label for="provider-filter">Filter by Provider:</label>
+        <select id="provider-filter" onchange="setFilter('provider', this.value, this)">
+          <option value="all">All Providers</option>
+          <!-- Options will be populated by JS -->
+        </select>
+      </div>
+    </div>
+
+    <div class="category-filters">
+      <button class="toggle-button show-all active" onclick="setFilter('category', 'all', this)">Show All</button>
+      <button class="toggle-button open-source" onclick="setFilter('category', 'open-source', this)">Open Weights Only</button>
+      <button class="toggle-button api-only" onclick="setFilter('category', 'api-only', this)">API Only</button>
+    </div>
+
+    <div class="counter-container">
+      <span style="color: var(--open-source-border); font-weight: 500;">Open Weights:</span>
+      <span id="open-source-count" class="count open-source-count">0</span>
+      <span style="color: #ddd; font-size: 1.2em;">|</span>
+      <span style="color: var(--api-only-border); font-weight: 500;">API Only:</span>
+      <span id="api-only-count" class="count api-only-count">0</span>
+    </div>
+
+    <div id="timeline-container" class="timeline">
+      <!-- Timeline content will be generated by JavaScript -->
+    </div>
+  </div>
+
+<script src="timeline-data.js"></script>
+<script>
+const filters = {
+    category: 'all',
+    year: 'all',
+    provider: 'all'
+};
+
+// --- Filter Logic ---
+function setFilter(type, value, element) {
+    filters[type] = value;
+    
+    if (element && element.tagName === 'BUTTON') {
+      const parent = element.parentElement;
+      parent.querySelectorAll('.toggle-button').forEach(btn => btn.classList.remove('active'));
+      element.classList.add('active');
+    }
+    
+    applyFilters();
+}
+
+function applyFilters() {
+    const events = document.querySelectorAll('.timeline-item');
+    let visibleOpenSourceCount = 0;
+    let visibleApiOnlyCount = 0;
+
+    events.forEach(event => {
+        const eventCategory = event.dataset.category;
+        const eventYear = event.dataset.year;
+        const eventProvider = event.dataset.provider;
+
+        const categoryMatch = filters.category === 'all' || eventCategory === filters.category;
+        const yearMatch = filters.year === 'all' || eventYear === filters.year;
+        const providerMatch = filters.provider === 'all' || eventProvider === filters.provider;
+
+        if (categoryMatch && yearMatch && providerMatch) {
+            event.style.display = 'block';
+            if (eventCategory === 'open-source') visibleOpenSourceCount++;
+            if (eventCategory === 'api-only') visibleApiOnlyCount++;
+        } else {
+            event.style.display = 'none';
+        }
+    });
+
+    document.querySelectorAll('.timeline-month').forEach(month => {
+        const visibleEvents = Array.from(month.querySelectorAll('.timeline-item')).filter(item => item.style.display !== 'none');
+        month.style.display = visibleEvents.length > 0 ? 'block' : 'none';
+    });
+    document.querySelectorAll('.timeline-year').forEach(year => {
+        const visibleMonths = Array.from(year.querySelectorAll('.timeline-month')).filter(month => month.style.display !== 'none');
+        year.style.display = visibleMonths.length > 0 ? 'block' : 'none';
+    });
+
+    updateCounts(visibleOpenSourceCount, visibleApiOnlyCount);
+}
+
+function updateCounts(openCount, apiCount) {
+    document.getElementById('open-source-count').textContent = openCount;
+    document.getElementById('api-only-count').textContent = apiCount;
+}
+
+// --- Timeline Generation ---
+function populateTimeline() {
+    const timelineContainer = document.getElementById('timeline-container');
+    const providerFilter = document.getElementById('provider-filter');
+    const yearFilterButtons = document.getElementById('year-filter-buttons');
+    const providers = new Set();
+    const monthOrder = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+    const groupedData = timelineData.reduce((acc, event) => {
+        if (!acc[event.year]) acc[event.year] = {};
+        if (!acc[event.year][event.month]) acc[event.year][event.month] = [];
+        acc[event.year][event.month].push(event);
+        if (event.provider) providers.add(event.provider);
+        return acc;
+    }, {});
+
+    const sortedYears = Object.keys(groupedData).sort((a, b) => a - b);
+    sortedYears.forEach(year => {
+        const button = document.createElement('button');
+        button.classList.add('toggle-button', 'year-btn');
+        button.textContent = year;
+        button.onclick = () => setFilter('year', year, button);
+        yearFilterButtons.appendChild(button);
+    });
+
+    let timelineHtml = '';
+    sortedYears.forEach(year => {
+        timelineHtml += `<div class="timeline-year" data-year="${year}"><h2>${year}</h2>`;
+        
+        const monthsInYear = Object.keys(groupedData[year]).sort((a, b) => monthOrder.indexOf(a) - monthOrder.indexOf(b));
+        
+        monthsInYear.forEach(month => {
+            timelineHtml += `<div class="timeline-month" data-month="${month}"><h3>${month}</h3>`;
+            
+            groupedData[year][month].forEach(event => {
+                const categoryClass = event.category === 'open-source' ? 'open-source' : 'api-only';
+                const tagText = event.category === 'open-source' ? 'Open Weights' : 'API Only';
+
+                // --- MODIFICATION START: Dynamically find all links ---
+                const eventLinks = Object.keys(event)
+                    .filter(key => key.startsWith('link') && event[key])
+                    .sort() // Sorts keys to ensure order (link, link1, link2)
+                    .map(key => event[key]); // Get the URL values
+
+                let linksHtml = '';
+                if (eventLinks.length > 0) {
+                    linksHtml += '<div class="event-links-container">';
+                    eventLinks.forEach((link, index) => {
+                        // Use a more generic label if there's only one link
+                        const linkText = eventLinks.length > 1 ? `Source ${index + 1}` : 'Source';
+                        linksHtml += `
+                            <a href="${link}" target="_blank" class="event-link" aria-label="${linkText} for ${event.title}">
+                                <i class="fas fa-link"></i> ${linkText}
+                            </a>
+                        `;
+                    });
+                    linksHtml += '</div>';
+                }
+                // --- MODIFICATION END ---
+                
+                timelineHtml += `
+                    <div class="timeline-item ${categoryClass}" data-year="${event.year}" data-provider="${event.provider || 'N/A'}" data-category="${event.category}" data-special="${event.special}">
+                        <div class="event-card">
+                            <div class="card-header">
+                                <div class="card-title-group">
+                                    <h4>${event.title}</h4>
+                                </div>
+                                <span class="tag ${categoryClass}-tag">${tagText}</span>
+                            </div>
+                            <p>${event.description}</p>
+                            ${linksHtml} 
+                        </div>
+                    </div>
+                `;
+            });
+            timelineHtml += `</div>`;
+        });
+        timelineHtml += `</div>`;
+    });
+
+    timelineContainer.innerHTML = timelineHtml;
+
+    const sortedProviders = Array.from(providers).sort();
+    sortedProviders.forEach(p => {
+        const option = document.createElement('option');
+        option.value = p;
+        option.textContent = p;
+        providerFilter.appendChild(option);
+    });
+}
+
+// --- Initialization ---
+document.addEventListener('DOMContentLoaded', () => {
+    populateTimeline();
+    // Set the initial filter to 'all' and apply it to show all events at start
+    setFilter('year', 'all', document.querySelector('#year-filter-buttons .year-btn.active'));
+    // applyFilters() is called inside setFilter, so no need to call it again here.
+});
+</script>
+</body>
+</html>
