@@ -32,7 +32,7 @@ const timelineData = [
   
   { year: 2022, month: "May", title: "Imagen", description: "Imagen's original version was first presented in a paper published in May 2022.", provider: "Google", category: "api-only", special: false, link1: "https://en.wikipedia.org/wiki/Imagen_(text-to-image_model)" },
   
-  { year: 2022, month: "March", title: "text-davinci-002 & code-davinci-002", description: "OpenAI releases text-davinci-002 and code-davinci-002 with an API approach.", provider: "OpenAI", category: "api-only", special: false, link1: "https://openai.com/index/instruction-following/", link2: "https://www.alignmentforum.org/posts/mbGjzyy6eJXT4gFpm/update-to-mysteries-of-mode-collapse-text-davinci-002-not", link1: "https://lifearchitect.ai/o3/" },
+  { year: 2022, month: "March", title: "text-davinci-002 & code-davinci-002", description: "OpenAI releases text-davinci-002 and code-davinci-002 with an API approach.", provider: "OpenAI", category: "api-only", special: false, link1: "https://openai.com/index/instruction-following/", link2: "https://www.alignmentforum.org/posts/mbGjzyy6eJXT4gFpm/update-to-mysteries-of-mode-collapse-text-davinci-002-not", link3: "https://lifearchitect.ai/o3/", link4: "https://archive.is/nm0fP#selection-299.8-299.35" },
   
   { year: 2022, month: "April", title: "Midjourney v2", description: "Midjourney v2 is released.", provider: "Midjourney", category: "api-only", special: false, link1: "https://en.wikipedia.org/wiki/Midjourney" },
   { year: 2022, month: "April", title: "DALL-E 2", description: "DALL-E 2 is announced for gradual release.", provider: "OpenAI", category: "api-only", special: true, link1: "https://openai.com/index/dall-e-2/" },
