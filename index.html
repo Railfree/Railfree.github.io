@@ -8,18 +8,20 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> <!-- For icons -->
   <style>
     :root {
-      --primary-color: #6200ea;
-      --secondary-color: #03dac6;
-      --background-color: #f8f9fa;
+      --primary-color: #5568FE;
+      --secondary-color: #6FC2FF;
+      --background-color: #f9fafb;
       --card-background: #ffffff;
-      --text-color: #333;
-      --muted-text-color: #777;
-      --open-source-bg: #e8f5e9;
-      --open-source-border: #4caf50;
-      --api-only-bg: #fff0f0;
-      --api-only-border: #f44336;
-      --special-color: #ffd700;
-      --link-color: #1976d2; /* Blue for links */
+      --text-color: #1f2937;
+      --muted-text-color: #6b7280;
+      
+      --open-source-bg: #ecfdf5;
+      --open-source-border: #10b981;
+      --api-only-bg: #fee2e2;
+      --api-only-border: #ef4444;
+
+      --special-color: #f59e0b;
+      --link-color: #3b82f6;
     }
 
     body {
@@ -29,6 +31,8 @@
       margin: 0;
       padding: 0;
       line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
     .container {
@@ -39,21 +43,24 @@
 
     .hero-section {
       text-align: center;
-      padding: 40px 20px;
-      background-color: var(--primary-color);
+      padding: 50px 20px;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
       color: white;
-      border-radius: 8px;
-      margin-bottom: 30px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      border-radius: 16px;
+      margin-bottom: 40px;
+      box-shadow: 0 10px 30px rgba(85, 104, 254, 0.2);
     }
     .hero-section h1 {
       margin: 0;
-      font-size: 2.2em;
+      font-size: 2.5em;
       font-weight: 700;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
     .hero-section p {
-      font-size: 1em;
+      font-size: 1.1em;
       color: rgba(255, 255, 255, 0.9);
+      max-width: 600px;
+      margin: 10px auto 0 auto;
     }
 
     .filter-controls {
@@ -62,11 +69,11 @@
       justify-content: center;
       align-items: center;
       padding: 15px 20px;
-      gap: 20px;
+      gap: 25px;
       background-color: var(--card-background);
-      border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-      margin-bottom: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      margin-bottom: 20px;
     }
     .filter-group {
       display: flex;
@@ -74,82 +81,91 @@
       gap: 10px;
     }
     .filter-group label {
-      font-weight: 600;
+      font-weight: 500;
       font-size: 0.9em;
       color: var(--text-color);
     }
     #year-filter-buttons .toggle-button {
-        margin: 0 2px;
+        margin: 0 3px;
     }
     select, .toggle-button {
-      padding: 8px 12px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
+      padding: 8px 15px;
+      border-radius: 8px;
+      border: 1px solid #e5e7eb;
       font-size: 0.85em;
+      font-family: 'Poppins', sans-serif;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all 0.2s ease;
+      background-color: #f9fafb;
     }
     select:focus, .toggle-button:focus {
       outline: none;
       border-color: var(--primary-color);
-      box-shadow: 0 0 0 3px rgba(98, 0, 234, 0.3);
+      box-shadow: 0 0 0 3px rgba(85, 104, 254, 0.2);
     }
     .toggle-button {
-      background-color: var(--background-color);
-      color: var(--text-color);
-      border: 1px solid #ddd;
+      background-color: var(--card-background);
+      color: var(--muted-text-color);
+      border: 1px solid #e5e7eb;
+      font-weight: 500;
+    }
+    .toggle-button:hover {
+        background-color: #f3f4f6;
+        border-color: #d1d5db;
     }
     .toggle-button.active {
       color: white;
-      border: none;
+      border: 1px solid transparent;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
-    .toggle-button.open-source.active { background-color: var(--open-source-border); }
-    .toggle-button.api-only.active { background-color: var(--api-only-border); }
-    .toggle-button.show-all.active { background-color: var(--primary-color); }
-    .toggle-button.year-btn.active { background-color: var(--primary-color); }
+    .toggle-button.open-source.active { background-color: var(--open-source-border); border-color: var(--open-source-border); }
+    .toggle-button.api-only.active { background-color: var(--api-only-border); border-color: var(--api-only-border); }
+    .toggle-button.show-all.active { background-color: var(--primary-color); border-color: var(--primary-color); }
+    .toggle-button.year-btn.active { background-color: var(--primary-color); border-color: var(--primary-color); }
 
     .category-filters {
         display: flex;
         justify-content: center;
         margin-bottom: 30px;
-        gap: 15px;
+        gap: 10px;
         flex-wrap: wrap;
+    }
+    .category-filters .toggle-button {
+        padding: 10px 20px;
+        border-radius: 50px; /* Pill shape */
     }
 
     .counter-container {
       text-align: center;
       padding: 15px;
-      background-color: var(--card-background);
-      margin: 0 auto 30px auto;
-      border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      margin: 0 auto 40px auto;
       max-width: 500px;
+      font-weight: 500;
     }
-    .counter-container span { margin: 0 5px; }
+    .counter-container span { margin: 0 8px; }
     .counter-container .count {
-        font-size: 1.2em;
+        font-size: 1.4em;
         font-weight: 700;
-        color: var(--primary-color);
     }
     .counter-container .open-source-count { color: var(--open-source-border); }
     .counter-container .api-only-count { color: var(--api-only-border); }
 
     .timeline {
       position: relative;
-      padding-left: 40px;
       list-style: none;
       margin: 0;
+      padding-left: 10px;
     }
 
     .timeline::before {
       content: '';
       position: absolute;
-      left: 20px;
+      left: 10px;
       top: 0;
       bottom: 0;
-      width: 3px;
-      background-color: var(--primary-color);
-      border-radius: 1.5px;
+      width: 4px;
+      background: linear-gradient(to top, #e5e7eb, #d1d5db);
+      border-radius: 2px;
       z-index: 1;
     }
 
@@ -160,87 +176,92 @@
 
     .timeline-year h2 {
       position: sticky;
-      top: 0;
-      background-color: var(--primary-color);
+      top: 10px;
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
       color: white;
       padding: 12px 20px;
-      border-radius: 8px;
-      font-size: 1.5em;
-      margin-bottom: 20px;
+      border-radius: 12px;
+      font-size: 1.6em;
+      margin-left: 30px;
+      margin-bottom: 30px;
       z-index: 10;
-      box-shadow: 0 4px 10px rgba(98, 0, 234, 0.3);
+      box-shadow: 0 8px 20px rgba(85, 104, 254, 0.2);
     }
 
     .timeline-month {
       position: relative;
       margin-bottom: 30px;
+      padding-left: 30px;
     }
 
     .timeline-month h3 {
       position: sticky;
-      top: 65px;
-      background-color: rgba(255, 255, 255, 0.95);
+      top: 90px;
+      background-color: rgba(249, 250, 251, 0.8);
+      backdrop-filter: blur(8px);
       color: var(--primary-color);
       font-size: 1.2em;
+      font-weight: 600;
       padding: 8px 15px;
-      border-left: 4px solid var(--primary-color);
-      border-radius: 0 5px 5px 0;
-      margin-bottom: 15px;
+      margin-bottom: 20px;
       z-index: 5;
-      backdrop-filter: blur(5px);
+      display: inline-block;
+      border-radius: 8px;
     }
 
     .timeline-item {
       position: relative;
-      padding-left: 40px;
-      margin-bottom: 20px;
+      padding-left: 30px;
+      margin-bottom: 25px;
       z-index: 2;
     }
 
     .timeline-item::before {
       content: '';
       position: absolute;
-      left: 0;
+      left: -8px;
       top: 12px;
-      width: 16px;
-      height: 16px;
-      background-color: var(--secondary-color);
-      border: 3px solid var(--primary-color);
+      width: 18px;
+      height: 18px;
+      background-color: var(--card-background);
+      border: 4px solid var(--secondary-color);
       border-radius: 50%;
       z-index: 3;
+      transition: transform 0.2s ease;
     }
     
     .timeline-item[data-special="true"]::after {
       content: '★';
       position: absolute;
-      left: -6px;
+      left: -19px;
       top: -3px;
       color: var(--special-color);
-      font-size: 18px;
+      font-size: 24px;
       z-index: 4;
-      text-shadow: 0 0 5px rgba(255, 215, 0, 0.7);
+      text-shadow: 0 0 10px rgba(245, 158, 11, 0.7);
     }
 
-    .timeline-item.open-source::before { background-color: var(--open-source-border); border-color: var(--open-source-bg); }
-    .timeline-item.api-only::before { background-color: var(--api-only-border); border-color: var(--api-only-bg); }
+    .timeline-item.open-source::before { border-color: var(--open-source-border); }
+    .timeline-item.api-only::before { border-color: var(--api-only-border); }
 
     .event-card {
       background-color: var(--card-background);
-      padding: 12px 15px;
-      border-radius: 8px;
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
-      transition: all 0.3s ease-in-out;
-      border-left: 4px solid var(--primary-color);
+      padding: 15px 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s cubic-bezier(.25,.8,.25,1);
       position: relative;
-      display: flex;
-      flex-direction: column;
+      border: 1px solid #e5e7eb;
     }
-    .timeline-item.open-source .event-card { border-left: 4px solid var(--open-source-border); background-color: var(--open-source-bg); }
-    .timeline-item.api-only .event-card { border-left: 4px solid var(--api-only-border); background-color: var(--api-only-bg); }
+    .timeline-item.open-source .event-card { border-color: var(--open-source-border); background-color: var(--open-source-bg);}
+    .timeline-item.api-only .event-card { border-color: var(--api-only-border); background-color: var(--api-only-bg); }
 
     .event-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.07);
+    }
+    .timeline-item:hover::before {
+        transform: scale(1.2);
     }
 
     .card-header {
@@ -248,7 +269,7 @@
       justify-content: space-between;
       align-items: center;
       gap: 10px;
-      margin-bottom: 5px;
+      margin-bottom: 8px;
     }
     
     .card-title-group {
@@ -261,22 +282,22 @@
 
     .card-title-group h4 {
       margin: 0;
-      font-size: 0.95em;
+      font-size: 1.05em;
       font-weight: 600;
       color: var(--text-color);
     }
     
     .event-card p {
       margin: 5px 0 0 0;
-      font-size: 0.8em;
+      font-size: 0.9em;
       color: var(--muted-text-color);
     }
 
     .card-header .tag {
-      padding: 3px 6px;
-      font-size: 0.7em;
+      padding: 4px 10px;
+      font-size: 0.75em;
       font-weight: 600;
-      border-radius: 3px;
+      border-radius: 50px;
       color: white;
       white-space: nowrap;
       flex-shrink: 0;
@@ -284,38 +305,43 @@
     .card-header .tag.open-source-tag { background-color: var(--open-source-border); }
     .card-header .tag.api-only-tag { background-color: var(--api-only-border); }
 
-    /* --- NEW CSS FOR LINKS CONTAINER --- */
     .event-links-container {
         display: flex;
         flex-wrap: wrap;
         gap: 15px;
-        margin-top: 10px;
-        padding-top: 5px;
+        margin-top: 12px;
+        padding-top: 12px;
         border-top: 1px solid rgba(0,0,0,0.05);
     }
 
     .event-link {
-        display: flex;
+        display: inline-flex;
         align-items: center;
-        gap: 5px;
-        font-size: 0.75em;
+        gap: 6px;
+        font-size: 0.8em;
         font-weight: 500;
         color: var(--link-color);
         text-decoration: none;
         white-space: nowrap;
+        background-color: rgba(59, 130, 246, 0.1);
+        padding: 4px 10px;
+        border-radius: 50px;
+        transition: all 0.2s ease;
     }
     .event-link i {
         font-size: 0.9em;
     }
     .event-link:hover {
-        text-decoration: underline;
+        text-decoration: none;
+        background-color: rgba(59, 130, 246, 0.2);
+        color: #2563eb;
     }
 
     .github-link {
       text-align: center;
       padding: 12px;
-      background-color: #24292e;
-      color: white;
+      background-color: #374151; /* Dark Gray */
+      color: #e5e7eb;
       font-size: 1em;
       margin-bottom: 30px;
     }
@@ -323,33 +349,102 @@
       color: white;
       text-decoration: none;
       font-weight: 500;
+      transition: color 0.2s;
     }
     .github-link a:hover {
-      text-decoration: underline;
+      color: var(--secondary-color);
     }
 
     @media (max-width: 768px) {
       .container { padding: 15px; }
-      .hero-section h1 { font-size: 1.8em; }
-      .filter-controls { flex-direction: column; gap: 15px; }
-      .timeline::before { left: 10px; }
-      .timeline-item { padding-left: 30px; }
-      .timeline-item::before { left: 0; width: 14px; height: 14px; top: 10px; border-width: 2px; }
-      .timeline-item[data-special="true"]::after { font-size: 16px; left: -5px; top: -2px;}
-      .timeline-month h3 { top: 55px; font-size: 1.1em; }
+      .hero-section h1 { font-size: 2em; }
+      .timeline::before { left: 5px; }
+      .timeline-item { padding-left: 20px; }
+      .timeline-item::before { left: -9px; }
+      .timeline-item[data-special="true"]::after { font-size: 22px; left: -18px; }
+      .timeline-year h2 { margin-left: 20px; font-size: 1.4em; }
+      .timeline-month { padding-left: 20px; }
+      .timeline-month h3 { top: 80px; font-size: 1.1em; }
     }
     @media (max-width: 480px) {
-      .hero-section h1 { font-size: 1.6em; }
-      .filter-controls { gap: 10px; }
-      .filter-group { flex-direction: column; align-items: flex-start; width: 100%; }
-      select, .toggle-button { width: 100%; }
+      .hero-section { padding: 40px 15px; border-radius: 12px; }
+      .hero-section h1 { font-size: 1.8em; }
+      .filter-controls { flex-direction: column; gap: 15px; }
+      .filter-group { flex-direction: column; align-items: stretch; width: 100%; text-align: center; }
+      select, .toggle-button { width: 100%; text-align: center; justify-content: center; }
+      .timeline-year h2 { font-size: 1.3em; margin-left: 10px; }
+      .timeline-month { padding-left: 10px; }
       .timeline-month h3 { font-size: 1em; }
-      .card-header { flex-wrap: wrap; }
-      .card-title-group h4 { font-size: 0.9em; }
-      .event-card p { font-size: 0.75em; }
-      .card-header .tag { font-size: 0.65em; }
-      .event-link { font-size: 0.75em; }
+      .card-title-group h4 { font-size: 1em; }
+      .event-card p { font-size: 0.85em; }
+      .card-header .tag { font-size: 0.7em; }
+      .event-link { font-size: 0.8em; }
     }
+
+    /* --- DARK MODE STYLES START --- */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --background-color: #170024;
+        --card-background: #1f2937;
+        --text-color: #e5e7eb;
+        --muted-text-color: #9ca3af;
+        
+        --open-source-bg: #00291e;
+        --api-only-bg: #3a0000;
+
+        --link-color: #60a5fa;
+      }
+
+      select, .toggle-button {
+        border-color: #374151;
+        background-color: #374151;
+        color: var(--text-color);
+      }
+      .toggle-button:hover {
+          background-color: #4b5563;
+          border-color: #4b5563;
+      }
+
+      /* The separator bar in the counter has an inline style, requiring !important to override */
+      .counter-container span[style*="d1d5db"] {
+        color: #4b5563 !important;
+      }
+
+      .timeline::before {
+        background: linear-gradient(to top, #374151, #4b5563);
+      }
+
+      .timeline-month h3 {
+        background-color: rgba(17, 24, 39, 0.85); /* Dark blur background */
+        color: var(--secondary-color);
+      }
+
+      .event-card {
+        border: 1px solid #374151;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -2px rgba(0, 0, 0, 0.15);
+      }
+      .event-card:hover {
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.25), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+      }
+      .timeline-item.open-source .event-card { border-color: var(--open-source-border); }
+      .timeline-item.api-only .event-card { border-color: var(--api-only-border); }
+
+      .event-links-container {
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .event-link {
+          background-color: rgba(96, 165, 250, 0.15);
+      }
+      .event-link:hover {
+          background-color: rgba(96, 165, 250, 0.25);
+          color: #93c5fd;
+      }
+
+      .github-link {
+        background-color: #1f2937;
+      }
+    }
+    /* --- DARK MODE STYLES END --- */
   </style>
 </head>
 <body>
@@ -388,10 +483,10 @@
     </div>
 
     <div class="counter-container">
-      <span style="color: var(--open-source-border); font-weight: 500;">Open Weights:</span>
+      <span style="font-weight: 500;">Open Weights:</span>
       <span id="open-source-count" class="count open-source-count">0</span>
-      <span style="color: #ddd; font-size: 1.2em;">|</span>
-      <span style="color: var(--api-only-border); font-weight: 500;">API Only:</span>
+      <span style="color: #d1d5db; font-size: 1.4em;">|</span>
+      <span style="font-weight: 500;">API Only:</span>
       <span id="api-only-count" class="count api-only-count">0</span>
     </div>
 
@@ -499,7 +594,6 @@ function populateTimeline() {
                 const categoryClass = event.category === 'open-source' ? 'open-source' : 'api-only';
                 const tagText = event.category === 'open-source' ? 'Open Weights' : 'API Only';
 
-                // --- MODIFICATION START: Dynamically find all links ---
                 const eventLinks = Object.keys(event)
                     .filter(key => key.startsWith('link') && event[key])
                     .sort() // Sorts keys to ensure order (link, link1, link2)
@@ -519,10 +613,9 @@ function populateTimeline() {
                     });
                     linksHtml += '</div>';
                 }
-                // --- MODIFICATION END ---
                 
                 timelineHtml += `
-                    <div class="timeline-item ${categoryClass}" data-year="${event.year}" data-provider="${event.provider || 'N/A'}" data-category="${event.category}" data-special="${event.special}">
+                    <div class="timeline-item ${categoryClass}" data-year="${event.year}" data-provider="${event.provider || 'N/A'}" data-category="${event.category}" data-special="${event.special || 'false'}">
                         <div class="event-card">
                             <div class="card-header">
                                 <div class="card-title-group">
